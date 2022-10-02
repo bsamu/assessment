@@ -1,0 +1,6 @@
+- Check if num, check if pos (for now).
+- Array of digits (zero, one, two...).
+- Array of TenXs (eleven, twelve, thirteen...).
+- Array of xTen (ten, twenty, thirty...).
+- Array of names (hundred, thousand, million...).
+- Array of others (minus, -, and, point) (?).
