@@ -31,17 +31,25 @@ function numToWords(input) {
 
     // for (let i = numLength - 1; i >= 6; i--) {
     for (let i = 0; i < numLength; i++) {
-        output = " " + output;
+        output += " ";
         // console.log("--------");
-        if (numLength - i === 2) {
-            console.log("Yolo")
-            if (num[i] == 1) {
-                output += tenXs[Number(num[i + 1])];
-                return output;
-            } else if (num[i] != 0) {
-                output += xTen[Number()]
-            }
+        if (numLength - i === 4 && num[i] == 1) {
+            // console.log(num[numLength - i - 1])
+            console.log(num[i])
+            i++;
+            // console.log(tenXs[Number(num[i])]);
+            output += tenXs[Number(num[i])] + " " + names[0];
+            // nem kell az else, mert csak 1-nél van ez!
         }
+        // if (numLength - i % 3 == 2) {
+        //     console.log("Yolo")
+        //     if (num[i] == 1) {
+        //         output += tenXs[Number(num[i + 1])];
+        //         return output;
+        //     } else if (num[i] != 0) {
+        //         output += xTen[Number()]
+        //     }
+        // }
         // console.log(i >= numLength - 2)
         // console.log(Number(num[i]) === 1)
         // console.log(i >= numLength - 2 && num[i] == 1)
@@ -56,4 +64,4 @@ function numToWords(input) {
 numToWords(123456719);
 console.log(numToWords(123456719));
 console.log(numToWords(-119));
-console.log(numToWords(-149));
+console.log(numToWords(-1149));
