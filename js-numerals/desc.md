@@ -4,3 +4,6 @@
 - Array of xTen (ten, twenty, thirty...).
 - Array of names (hundred, thousand, million...).
 - Array of others (minus, -, and, point) (?).
+
+- Convert to string for later use.
+- Remove trailing spaces.
