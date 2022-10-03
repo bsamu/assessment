@@ -33,12 +33,14 @@ function numToWords(input) {
                 output += " " + others[2] + " " + tenXs[Number(num[i + 1])];
             } else if (num[numLength - i] != 0) {
                 if (num[numLength - i] != 0) {
+                    console.log("line 36")
                     output += " " + others[2] + " " + xTen[Number(num[i])];
                 }
                 if ((num[numLength - i] != 0)) {
                     output += "-" + digits[Number(num[i])];
                 }
-            } else if (num[numLength - i] == 0) {
+            } else if (num[numLength - i] == 0 && num[numLength - i + 1] != 0) {
+                console.log("line 43")
                 output += " " + others[2] + " " + digits[Number(num[i + 1])];
             }
         }
