@@ -5,19 +5,10 @@ const names = ["hundred", "thousand", "million"];
 const others = ["minus", "-", "and", "point"];
 
 function numToWords(input) {
-    console.log("----------")
     if (typeof (input) !== "number") return "Invalid input, Not-a-Number!";
 
     let num;
     let output = "";
-
-    // if (input !== Math.abs(input)) {
-    //     isNegative = 1;
-    //     num = Math.abs(input).toString();
-    // } else {
-    //     num = input.toString();
-    // }
-
 
     if (input.toString().indexOf("-") !== -1) {
         num = Math.abs(input).toString();
@@ -29,39 +20,36 @@ function numToWords(input) {
     const numLength = num.length;
     if (numLength > 9) return "Too big number!";
 
-    // for (let i = numLength - 1; i >= 6; i--) {
     for (let i = 0; i < numLength; i++) {
         output += " ";
-        // console.log("--------");
         if (numLength - i === 4 && num[i] == 1) {
-            // console.log(num[numLength - i - 1])
-            console.log(num[i])
-            i++;
-            // console.log(tenXs[Number(num[i])]);
-            output += tenXs[Number(num[i])] + " " + names[0];
-            // nem kell az else, mert csak 1-nél van ez!
+            output += tenXs[Number(num[i + 1])] + " " + names[0];
+            i += 2;
+            console.log(num[i], num[i + 1], "line 39")
+            if (num[numLength - i - 2] == 0 && num[numLength - i - 3] == 0) {
+                return output;
+            }
+            if (num[numLength - i] == 1) {
+                output += " " + others[2] + " " + tenXs[Number(num[i + 1])];
+            } else if (num[numLength - i] != 0) {
+                if (num[numLength - i] != 0) {
+                    output += " " + others[2] + " " + xTen[Number(num[i])];
+                }
+                if ((num[numLength - i] != 0)) {
+                    output += "-" + digits[Number(num[i])];
+                }
+            } else if (num[numLength - i] == 0) {
+                output += " " + others[2] + " " + digits[Number(num[i + 1])];
+            }
         }
-        // if (numLength - i % 3 == 2) {
-        //     console.log("Yolo")
-        //     if (num[i] == 1) {
-        //         output += tenXs[Number(num[i + 1])];
-        //         return output;
-        //     } else if (num[i] != 0) {
-        //         output += xTen[Number()]
-        //     }
-        // }
-        // console.log(i >= numLength - 2)
-        // console.log(Number(num[i]) === 1)
-        // console.log(i >= numLength - 2 && num[i] == 1)
-        // console.log("--------")
-        // console.log(num[i]);
-        // output = digits[Number(num[i])] + output;
     }
-    // console.log(output);
-    return output;
+    return output.trim();
 }
 
 numToWords(123456719);
 console.log(numToWords(123456719));
 console.log(numToWords(-119));
 console.log(numToWords(-1149));
+console.log(numToWords(-1100));
+console.log(numToWords(-1115));
+console.log(numToWords(-1109));
