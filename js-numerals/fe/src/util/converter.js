@@ -1,7 +1,53 @@
-const digits = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-const decimals = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-const tenXs = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
-const xTen = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+/* eslint-disable */
+
+const digits = [
+    "",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+];
+const decimals = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+];
+const tenXs = [
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+];
+const xTen = [
+    "",
+    "",
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "sixty",
+    "seventy",
+    "eighty",
+    "ninety",
+];
 const names = ["hundred", "thousand", "million"];
 const others = ["minus", "-", "and", "point"];
 
@@ -17,9 +63,8 @@ function fourDigits(input, given) {
         if (num[2] == 1) {
             output += " " + others[2] + " " + tenXs[Number(num[3])];
         } else if (num[2] != 0) {
-            if (num[2] != 0) {
-                output += " " + others[2] + " " + xTen[Number(num[2])];
-            }
+            output += " " + others[2] + " " + xTen[Number(num[2])];
+
             if (num[3] != 0) {
                 output += "-" + digits[Number(num[3])];
             }
@@ -44,7 +89,7 @@ function fourDigits(input, given) {
                 output += others[1] + digits[Number(num[3])];
             }
         } else if (num[2] == 0 && num[3] != 0) {
-            output += " " + digits[Number(num[3])];;
+            output += " " + digits[Number(num[3])];
         }
     }
     return output.replace("  ", " ").trim();
@@ -54,9 +99,9 @@ function subArrayMaker(num) {
     const helper = num.split("").reverse();
     const arr = [];
     for (let i = 0; i < helper.length;) {
-        arr.push(helper.slice(i, i += 3));
+        arr.push(helper.slice(i, (i += 3)));
     }
-    arr.map(e => e.reverse())
+    arr.map((e) => e.reverse());
     arr.reverse();
     return arr;
 }
@@ -64,8 +109,7 @@ function subArrayMaker(num) {
 function occurence(given) {
     let result = 0;
     for (let i = 0; i < 2; i++) {
-        if (given[i] == 0)
-            result++;
+        if (given[i] == 0) result++;
     }
     return result;
 }
@@ -92,25 +136,27 @@ function hundred(given) {
     return temp.trim();
 }
 
-function numToWords(input) {
-    console.log("----------")
-    if (typeof (input) !== "number") return "Invalid input, Not-a-Number!";
-    if (input === 0) return digits[0];
+export function numToWords(input) {
+    if (isNaN(+input)) return "Invalid input, Not-a-Number!"; // typeof NaN is number !
+    if (+input === 0) return "zero";
+    if (input.toString()[0] == 0)
+        return "Please dont start the number with a 0!";
+    if (input.indexOf(".") !== -1)
+        return "Invalid input, dont use decimals yet!";
 
     let num;
-    const result = [];
     let output = "";
 
     if (Math.floor(input).toString().indexOf("-") !== -1) {
         num = Math.abs(input).toString();
         output = others[0] + " ";
-        result.push(others[0]);
     } else {
         num = input.toString();
     }
 
     const numLength = num.length;
-    if (numLength > 7) return "Too big number!";
+    if (numLength > 7)
+        return "Too long number, please select between -9999999 and 9999999!";
 
     if (numLength === 4) return fourDigits(num, output); // 4 digit solution
 
@@ -135,14 +181,17 @@ function numToWords(input) {
         if (occurence(arr[0]) < 2 && arr[0].length === 2) {
             if (arr[0][0] == 1) {
                 output += " " + tenXs[Number(arr[0][1])] + " " + names[1];
-            } else if (arr[0][0] != 0) {
-                output += " " + others[2] + " " + xTen[Number(arr[0][0])];
+            } else if (Number(arr[0][0]) > 1) {
+                output += xTen[Number(arr[0][0])];
                 if (arr[0][1] != 0) {
-                    output += "-" + digits[Number(arr[0][1])];
+                    output += others[1] + digits[Number(arr[0][1])] + " " + names[1];
+                } else if (arr[0][1] == 0) {
+                    output += " " + names[1];
                 }
-            } else if (arr[0][0] == 0 && arr[0][1] != 0) {
-                output += " " + digits[Number(arr[0][1])];
             }
+            // else if (arr[0][0] == 0 && arr[0][1] != 0) {
+            //   output += " " + digits[Number(arr[0][1])];
+            // }
         }
 
         if (occurence(arr[1]) < 3) {
@@ -151,48 +200,36 @@ function numToWords(input) {
     }
 
     if (arrLength === 1 && arr[0].length === 3) {
-        output += digits[arr[0][0]]
+        output += digits[arr[0][0]] + " " + names[0];
+
+        if (arr[0][1] == 1) {
+            output += " " + others[2] + " " + tenXs[Number(num[2])];
+        } else if (Number(arr[0][1]) > 1) {
+            output += " " + others[2] + " " + xTen[Number(arr[0][1])];
+            if (arr[0][2] != 0) {
+                output += others[1] + digits[Number(arr[0][2])];
+            }
+        } else if (arr[0][1] == 0 && arr[0][2] != 0) {
+            output += " " + others[2] + " " + digits[Number(arr[0][2])];
+        }
     }
 
     if (arrLength === 1 && arr[0].length === 2) {
         if (arr[0][0] == 1) {
-            output += tenXs[Number(num[1])] + " " + names[0];
+            output += tenXs[Number(num[1])];
         }
 
         if (Number(num[0]) > 1) {
-            if (num[0] == 1) {
-                output += tenXs[Number(num[1])];
-            } else if (Number(num[0]) > 1) {
-                output += xTen[Number(num[0])];
-                if (num[1] != 0) {
-                    output += others[1] + digits[Number(num[1])];
-                }
-            } else if (num[0] == 0 && num[1] != 0) {
-                output += " " + digits[Number(num[1])];;
+            output += xTen[Number(num[0])];
+            if (num[1] != 0) {
+                output += others[1] + digits[Number(num[1])];
             }
         }
     }
 
     if (arrLength === 1 && arr[0].length === 1) {
-        output += digits[Number(arr[0][0])]
+        output += digits[Number(arr[0][0])];
     }
 
     return output.replace("  ", " ").trim();
 }
-
-console.log(numToWords(7));
-console.log(numToWords(42));
-console.log(numToWords(1999));
-console.log(numToWords(2001));
-console.log(numToWords(17999));
-console.log(numToWords(100001));
-console.log(numToWords(342251));
-console.log(numToWords(1300420));
-// 7       === seven
-// 42      === forty-two
-// 1999    === one thousand nine hundred and ninety-nine
-// 2001    === two thousand and one
-// 17999   === seventeen thousand nine hundred and ninety-nine
-// 100001  === one hundred thousand and one
-// 342251  === three hundred and forty-two thousand two hundred and fifty-one
-// 1300420 === one million three hundred thousand four hundred and twenty
