@@ -1,9 +1,11 @@
-- Check if num, check if pos (for now).
-- Array of digits (zero, one, two...).
-- Array of TenXs (eleven, twelve, thirteen...).
-- Array of xTen (ten, twenty, thirty...).
-- Array of names (hundred, thousand, million...).
-- Array of others (minus, -, and, point) (?).
+x Check if num, check if pos (for now).
+x Array of digits (zero, one, two...).
+x Array of TenXs (eleven, twelve, thirteen...).
+x Array of xTen (ten, twenty, thirty...).
+x Array of names (hundred, thousand, million...).
+x Array of others (minus, -, and, point) (?).
 
-- Convert to string for later use.
-- Remove trailing spaces.
+x Convert to string for later use.
+x Remove trailing spaces.
+
+- Begins with 0...
